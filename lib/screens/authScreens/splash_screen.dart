@@ -1,3 +1,4 @@
+import 'package:dio_get_api_list_and_map/screens/home_page.dart';
 import 'package:flutter/material.dart';
 
 import '../../helper/assets_helper.dart';
@@ -18,7 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     Future.delayed(const Duration(seconds: 3),(){
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>const LoginScreen()));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>const HomePage()));
     });
     // TODO: implement initState
     super.initState();

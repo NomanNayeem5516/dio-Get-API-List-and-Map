@@ -1,18 +1,21 @@
-
-
+import '../models/responseMap.dart';
+import '../models/response_list.dart';
 import 'dio_helper.dart';
 
 class Repository {
   static final DioHelper _dioHelper = DioHelper();
 
-  Future<dynamic>postApi(Object reqModel)async{
-    var response =await _dioHelper.post(url: 'https://requres.in/api/register',requestBody: reqModel);
-    return response;
+  Future<ResponseMap> responseInMap() async {
+    Map<String, dynamic> response = await _dioHelper.get(
+      url: 'https://reqres.in/api/users?page=2',
+    );
+    return ResponseMap.fromJson(response);
   }
 
-
-  Future<dynamic>getApi(Object reqModel)async{
-    var response =await _dioHelper.get(url: 'https://requres.in/api/register',);
-    return response;
+  Future<List<ResponseList>> responseInList() async {
+    List<dynamic> response = await _dioHelper.get(
+      url: 'https://jsonplaceholder.typicode.com/posts',
+    );
+    return List<ResponseList>.from(response.map((e)=>ResponseList.fromJson(e)));
   }
 }

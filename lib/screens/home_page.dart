@@ -1,4 +1,8 @@
+import 'package:dio_get_api_list_and_map/models/responseMap.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import '../networkManager/repository.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -8,8 +12,39 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  ResponseMap responseMap = ResponseMap();
+  bool loading = true;
+  getData() {
+    Repository().responseInMap().then((value) {
+      responseMap = value;
+      loading = false;
+      setState(() {});
+    }).onError((error, stackTrace) {
+      print("Error=>${error.toString()}");
+    });
+  }
+
+  @override
+  void initState() {
+    getData();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return const Scaffold();
+    return Scaffold(
+      body: loading
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
+          : ListView.builder(
+              itemCount: responseMap.data?.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  title: Text(responseMap.data?[index].firstName??""),
+                  subtitle: Text(responseMap.data?[index].firstName??""),
+                );
+              }),
+    );
   }
 }
