@@ -41,6 +41,9 @@ class _HomePageState extends State<HomePage> {
               itemCount: responseMap.data?.length,
               itemBuilder: (context, index) {
                 return ListTile(
+                  leading: CircleAvatar(
+                    backgroundImage: NetworkImage(responseMap.data?[index].avatar??""),
+                  ),
                   title: Text(responseMap.data?[index].firstName??""),
                   subtitle: Text(responseMap.data?[index].firstName??""),
                 );
